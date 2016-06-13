@@ -1,0 +1,22 @@
+1. Create xdr file for the args and an enum of op ids for each method
+2. compile to generate the .h and .c files to process the arguments
+3. create the client side API that calls the nssi_call_rpc_sync
+3a. Define any structs that are passed back to the client in a client side
+    include file. This will also be included on the server side to define what
+    is being returned.
+4. On the client side, add a set of calls to NSSI_REGISTER_CLIENT_STUB to
+   register the client side of the API calls defined in the .x file
+5. create the server side API calls that all use the standard interface. Use
+   nssi_get_data to retrieve blocks of data, nssi_put_data to return large
+   chunks, and nssi_send_result to finalize every call. Be sure to have those
+   functions return a value for NSSI to report internally.
+6. On the server side, add the NSSI_REGISTER_SERVER_STUB calls to register the
+   mapping of the opcodes defined in the .x to the particular 'stub' function
+   implemented above.
+
+NOTES:
+1. All buffers must be allocated before the calls. This includes ones for
+   receiving data. Those must know how big to be somehow.
+2. Any data returned should be cleaned up on the server side since it is not
+   referenced anymore.
+3. for nssi_kill, use signal 0 and 5000 ms delay to shutdown cleanly.

@@ -1,0 +1,24 @@
+need a protection domain.
+
+To create:
+apmgr pdomain -c TXN
+
+from any aprun reference it using this:
+
+-p TXN
+
+txn.sl is for stand-alone runs
+
+submit.sh and related scripts for for submitting a bunch.
+
+Tests that should work for scale up to 64K procs use
+./submit.sh 14 txn
+
+Warning: Any size over 7 to run will generate many GB of output if printing
+is enabled. 16K procs generated 12 GB of output
+
+4 versions of txn.sh are available:
+txn_success.sh - no failures forced
+txn_subordinate_failure.sh - cause a subordinate to fail
+txn_sub_coord_failure.sh - cause a sub_coordinator (but not coordinator to fail)
+txn_coord_failure.sh - cause the coordinator to fail.

@@ -1,0 +1,1 @@
+export DATASTORE_CONFIG_FILE=ds_config.txt

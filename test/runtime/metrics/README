@@ -1,0 +1,2 @@
+script to summarize the metrics generated. It lists the min, mean, and max
+for each measurement across all processes in the file.
